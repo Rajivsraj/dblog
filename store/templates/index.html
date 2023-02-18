@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row mx-auto">
+    <div class="col-2">
+      <ul class="list-group list-group-flush">
+        {% for category in all_categories %}
+            <li class="list-group-item">{{category.name}}</li>
+
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-10">
+      <div class="row">
+        {% for product in all_products %}
+          <div class="col-3 mb-3">
+            <div class="card" style="width: 18rem;">
+              <img src="{{product.image.url}}" class="card-img-top" alt="...">
+              
+              <br>
+              <br>
+              <br>
+            
+              <div class="card-body">
+                <h5 class="card-title">{{product.name}}</h5>
+                <p class="card-text">{{product.description}}</p>
+                <p class="card-text">Rs. {{product.price}}</p>
+                <a href="#" class="btn btn-primary">Add To card</a>
+              
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
