@@ -1,33 +1,15 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth.hashers import make_password, check_password   # for password Hashing
-from .models.product import Product
-from .models.category import Category
-from .models.customer import Customer
+from django.contrib.auth.hashers import make_password   # for password Hashing
+from store.models.customer import Customer
+from django.views import View
 
 
-# Create your views here.
-def index(request):
-    products = None
-    categories = Category.get_all_categories()
-    category_id = request.GET.get("cat_id")
-
-    if category_id:
-        products = Product.get_all_products_by_cat_id(category_id)
-    else:
-        products = Product.get_all_products()
-
-    data = {
-        "all_products": products,
-        "all_categories": categories
-    }
-    return render(request, "index.html", data)
-
-
-def signup(request):
-    if request.method == "GET":
+class Signup(View):
+    def get(self, request):
         return render(request, "signup.html")
-    else:
+
+    def post(self, request):
         # Register User
         post_data = request.POST
         fname = post_data.get("fname")
@@ -82,24 +64,3 @@ def signup(request):
                 "all_values": values
             }
             return render(request, "signup.html", data)
-
-
-def login(request):
-    if request.method == "GET":
-        return render(request, "login.html")
-    else:
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        customer = Customer.get_customer_by_email(email)
-        err_msg = None
-
-        if customer:
-            flag = check_password(password, customer.password)
-            if flag:
-                return redirect("homepage")
-            else:
-                err_msg = "Email or Password Invalid"
-        else:
-            err_msg = "Email or Password Invalid"
-        print(customer, password)
-        return render(request, "login.html", {"error_msg": err_msg})
