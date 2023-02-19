@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center align-items-center mt-4 g-3">
+           
+            <div class="col-4 border rounded">
+                <h3 class="text-center">Create An Account</h3>
+
+                {% if error_msg %}
+                  <div class="alert alert-danger">{{error_msg}}</div>
+                {% endif %}
+                <form action="" method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-1">
+                        <label for="fname" class="form-label">First Name</label>
+                        <input type="text" class="form-control form-control-sm" name="fname" value="{{all_values.first_name}}" id="fname" aria-describedby="emailHelp">
+                    </div>
+
+                    <div class="mb-1">
+                        <label for="lname" class="form-label">Last Name</label>
+                        <input type="text" class="form-control form-control-sm" name="lname" value="{{all_values.last_name}}" id="lname" aria-describedby="emailHelp">
+                    </div>
+
+                    <div class="mb-1">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="tel" class="form-control form-control-sm" name="phone" value="{{all_values.phone}}" id="phone" aria-describedby="emailHelp">
+                    </div>
+
+                    <div class="mb-1">
+                      <label for="email" class="form-label">Email address</label>
+                      <input type="email" class="form-control form-control-sm"  name="email" value="{{all_values.email}}" id="email" aria-describedby="emailHelp">
+                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="password" class="form-label">Password</label>
+                      <input type="password" class="form-control form-control-sm" name="password" id="password">
+                    </div>
+
+                    {% comment %} <div class="mb-1 form-check">
+                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    </div> {% endcomment %}
+                    <button type="submit" class="btn btn-warning mx-auto d-block">Signup</button>
+                  </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
