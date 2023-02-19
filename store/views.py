@@ -82,3 +82,24 @@ def signup(request):
                 "all_values": values
             }
             return render(request, "signup.html", data)
+
+
+def login(request):
+    if request.method == "GET":
+        return render(request, "login.html")
+    else:
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        customer = Customer.get_customer_by_email(email)
+        err_msg = None
+
+        if customer:
+            flag = check_password(password, customer.password)
+            if flag:
+                return redirect("homepage")
+            else:
+                err_msg = "Email or Password Invalid"
+        else:
+            err_msg = "Email or Password Invalid"
+        print(customer, password)
+        return render(request, "login.html", {"error_msg": err_msg})
