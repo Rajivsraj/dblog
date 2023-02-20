@@ -1,6 +1,6 @@
 # USER DETAILS
-user: admin
-email: admin@gmail.com
+user: admin <br>
+email: admin@gmail.com <br>
 password: admin
 
 # need modules/Libraries
